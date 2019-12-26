@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Red Dead Online Clock (Created by Michal__d)</title>
+</head>
+
+<body style="background-color: rgb(20, 20, 20); text-align: center; padding-top: 50px; color: white;">
+    <!-- <div id="title"; style="font-size: 72px;">Red Dead Online Timer:</div> -->
+    <div id="clockBox" onload="displayGameTime()" style="font-size: 92px; font-weight: 600;"></div>
+
+    <script type="text/javascript">
+        function displayGameTime() {
+            const display_24 = true;
+            const newDate = new Date();
+            const startTime = newDate.valueOf();
+            const correctTime = new Date(startTime * 30);
+            const UTC_hours = correctTime.getUTCHours();
+            const UTC_minutes = correctTime.getUTCMinutes();
+            correctTime.setMinutes(UTC_minutes - 3);
+
+            if (display_24)
+                document.getElementById('clockBox').innerHTML = UTC_hours + ":" + padding(UTC_minutes, 2);
+            else
+                document.getElementById('clockBox').innerHTML = UTC_hours % 12 + ":" + padding(UTC_minutes, 2) + ((UTC_hours > 12) ? "PM" : "AM");
+
+            function padding(e, s) {
+                return (1e3 + e + "").slice(-s);
+            }
+        }
+
+        displayGameTime();
+        setInterval(displayGameTime, 2000);
+    </script>
+</body>
+
+</html>
