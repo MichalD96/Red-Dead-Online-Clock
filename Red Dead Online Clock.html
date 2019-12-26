@@ -20,14 +20,14 @@
             const UTC_minutes = correctTime.getUTCMinutes();
             correctTime.setMinutes(UTC_minutes - 3);
 
+            padding = function (e, s) {
+                return (1e3 + e + "").slice(-s);
+            }
+
             if (display_24)
                 document.getElementById('clockBox').innerHTML = UTC_hours + ":" + padding(UTC_minutes, 2);
             else
                 document.getElementById('clockBox').innerHTML = UTC_hours % 12 + ":" + padding(UTC_minutes, 2) + ((UTC_hours > 12) ? "PM" : "AM");
-
-            function padding(e, s) {
-                return (1e3 + e + "").slice(-s);
-            }
         }
 
         displayGameTime();
