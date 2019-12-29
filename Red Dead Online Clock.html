@@ -16,22 +16,24 @@
             const newDate = new Date();
             const startTime = newDate.valueOf();
             const correctTime = new Date(startTime * 30);
-            const UTC_hours = correctTime.getUTCHours();
-            const UTC_minutes = correctTime.getUTCMinutes();
-            correctTime.setMinutes(UTC_minutes - 3);
-
-            padding = function (e, s) {
-                return (1e3 + e + "").slice(-s);
-            }
+            correctTime.setHours(correctTime.getUTCHours());
+            correctTime.setMinutes(correctTime.getUTCMinutes() - 3);
 
             if (display_24)
-                document.getElementById('clockBox').innerHTML = UTC_hours + ":" + padding(UTC_minutes, 2);
-            else
-                document.getElementById('clockBox').innerHTML = UTC_hours % 12 + ":" + padding(UTC_minutes, 2) + ((UTC_hours > 12) ? "PM" : "AM");
+                document.getElementById('clockBox').innerHTML = correctTime.getHours() + ":" + pad(correctTime.getMinutes(), 2);
+                
+            else {
+                const AM_PM = ((correctTime.getHours() > 12) ? " PM" : " AM");
+                document.getElementById('clockBox').innerHTML = correctTime.getHours() % 12 + ":" + pad(correctTime.getMinutes(), 2) + AM_PM;
+            }
+
+            function pad(e, s) {
+                return (1e3 + e + "").slice(-s);
+            }
         }
 
         displayGameTime();
-        setInterval(displayGameTime, 2000);
+        setInterval(displayGameTime, 1000);
     </script>
 </body>
 
